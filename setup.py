@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(
-    name='lab2',
+    name='myrm',
     version='1.0',
     py_modules=['myrm'],
     install_requires=[

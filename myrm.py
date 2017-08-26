@@ -15,8 +15,8 @@ class Config(object):
         self.dry = False
         self.silent = False
         self.with_confirmation = False
-        self.path_to_trash = '/home/markokolov/PycharmProjects/lab2/.trash'
-        self.path_to_log = '/home/markokolov/PycharmProjects/lab2/.log_myrm_itislogfilemyrm_'
+        self.path_to_trash = '.trash'
+        self.path_to_log = '.log_myrm_itislogfilemyrm_'
         self.policy = False
         self.last_cleaning_date = {'year': 2017,
                                    'month': 1,
@@ -183,7 +183,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
 
 
 @main.command()
-@click.argument('path', default='/home/markokolov/PycharmProjects/lab2/.trash', type=str)
+@click.argument('path', default='.trash', type=str)
 def new_trash_path(path):
     """Specify the path to the trash."""
     global config
@@ -209,7 +209,7 @@ def new_trash_path(path):
 
 
 @main.command()
-@click.argument('path', default='/home/markokolov/PycharmProjects/lab2/.log_myrm', type=str)
+@click.argument('path', default='.log_myrm', type=str)
 def new_log_path(path):
     """Specify the path to the log."""
     global config
