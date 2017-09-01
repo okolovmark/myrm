@@ -1,5 +1,5 @@
 import json
-
+import sys
 
 class Config(object):
     def __init__(self):
@@ -20,6 +20,7 @@ class Config(object):
         self.max_size_for_start_cleaning = 2000000000
         self.call_auto_cleaning_if_memory_error = False
         self.show_bar_status = False
+        self.level_log = sys.maxint
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,

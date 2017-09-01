@@ -9,7 +9,7 @@ from config import Config
 
 def log_config(config=Config()):
     logging.basicConfig(format=u'%(levelname)-8s [%(asctime)s] %(message)s',
-                    level=logging.DEBUG, filename=config.path_to_log)
+                        level=config.level_log, filename=config.path_to_log)
 
 
 def message(config=Config(), *args, **kwargs):
