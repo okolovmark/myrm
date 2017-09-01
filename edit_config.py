@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 import click
 import logging
 import json
@@ -5,7 +7,6 @@ from config import Config
 
 
 pass_config = click.make_pass_decorator(Config, ensure=True)
-config = Config()
 
 
 @pass_config
