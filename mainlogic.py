@@ -6,9 +6,10 @@ import shutil
 import inspect
 import datetime
 import logging
+import sys
 from edit_config import write_config
 from config import Config
-from different_little_things import log_config, message, confirmation, print_progress_bar, get_size_trash
+from additional_functions import log_config, message, confirmation, print_progress_bar, get_size_trash
 
 
 def create_new_trash_path(config=Config(), path='.trash'):
@@ -321,7 +322,8 @@ def restoring_files(files, config=Config()):
 
 
 def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False,
-                  auto_cleaning=False, show_bar_status=False, time=10, size=2000000000, config=Config()):
+                  auto_cleaning=False, show_bar_status=False, time=None, size=None,
+                  level_log=sys.maxint, config=Config()):
     """Editing program settings."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
@@ -333,10 +335,22 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     config.policy = policy
     config.call_auto_cleaning_if_memory_error = auto_cleaning
     config.show_bar_status = show_bar_status
+    if level_log is sys.maxint or level_log is None:
+        config.level_log = sys.maxint
+        message(config, 'Logging is disabled')
+        logging.info('Logging is disabled')
+    else:
+        config.level_log = level_log
+        message(config, 'The following level of logging is set: {}'.format(level_log))
+        logging.info('The following level of logging is set: {}'.format(level_log))
     if time is not None:
         config.min_day_for_start_cleaning = time
+        message(config, 'The minimum number of days for auto cleaning is set to {}'.format(time))
+        logging.info('The minimum number of days for auto cleaning is set to {}'.format(time))
     if size is not None:
         config.max_size_for_start_cleaning = size
+        message(config, 'The maximum basket size for cleaning is set to {}'.format(size))
+        logging.info('The maximum basket size for cleaning is set to {}'.format(size))
     write_config(config)
     if config.dry:
         message(config, 'Now imitation of the program is on')

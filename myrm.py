@@ -7,14 +7,12 @@ import datetime
 import logging
 from edit_config import read_config
 from config import Config
-from different_little_things import message
+from additional_functions import message, log_config
 from mainlogic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
                       auto_clear_trash, deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 
 config = Config()
-logging.basicConfig(format=u'%(levelname)-8s [%(asctime)s] %(message)s',
-                    level=logging.DEBUG, filename=config.path_to_log)
 
 
 @click.group()
@@ -37,6 +35,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
     """Here you can specify one-time settings, if you want and call the program functions."""
     global config
     config = read_config()
+    log_config(config=config)
     logging.info(inspect.stack()[0][3])
     if file_of_settings is not None:
         try:
@@ -139,10 +138,13 @@ def restore_files(files):
               help='Change the time at which the trash will be cleaned(recommended: --time=10).')
 @click.option('-z', '--size', type=int, required=False,
               help='Change the size(byte) at which the trash will be cleaned(recommended: --size=2000000000).')
-def settings(dry, silent, with_confirmation, policy, auto_cleaning, show_bar_status, time, size):
+@click.option('-l', '--level_log', type=int, required=False,
+              help='Change the level of the logging or omit the parameter to disable logging.')
+def settings(dry, silent, with_confirmation, policy, auto_cleaning, show_bar_status, time, size, level_log):
     """Editing program settings."""
-    edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation, policy=policy, config=config,
-                  auto_cleaning=auto_cleaning, show_bar_status=show_bar_status, time=time, size=size)
+    edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation, policy=policy,
+                  config=config, auto_cleaning=auto_cleaning, show_bar_status=show_bar_status,
+                  time=time, size=size, level_log=level_log)
 
 
 if __name__ == '__main__':
