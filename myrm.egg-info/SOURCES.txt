@@ -1,0 +1,7 @@
+myrm.py
+myrm.egg-info/PKG-INFO
+myrm.egg-info/SOURCES.txt
+myrm.egg-info/dependency_links.txt
+myrm.egg-info/entry_points.txt
+myrm.egg-info/requires.txt
+myrm.egg-info/top_level.txt
