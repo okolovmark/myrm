@@ -5,11 +5,13 @@ import json
 import inspect
 import datetime
 import logging
-from edit_config import read_config, config
+from edit_config import read_config
+from config import Config
 from mainlogic import message, create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
                       auto_clear_trash, deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 
+config = Config()
 logging.basicConfig(format=u'%(levelname)-8s [%(asctime)s] %(message)s',
                     level=logging.DEBUG, filename=config.path_to_log)
 
@@ -39,8 +41,8 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
         try:
             file_config = open(file_of_settings, 'r')
         except IOError:
-            message('Could not open file')
-            message('Open a normal config')
+            message(config, 'Could not open file')
+            message(config, 'Open a normal config')
             logging.error('Could not open file')
             logging.error('Open a normal config')
         else:
@@ -48,8 +50,8 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
                 try:
                     config.__dict__ = json.loads(file_config.read())
                 except BaseException:
-                    message('Could not read file')
-                    message('Open a normal config')
+                    message(config, 'Could not read file')
+                    message(config, 'Open a normal config')
                     logging.error('Could not read file')
                     logging.error('Open a normal config')
     elif one_time_settings:
@@ -73,21 +75,21 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
                                                config.last_cleaning_date['microsecond'])
         min_date_for_start_cleaning = datetime.timedelta(config.min_day_for_start_cleaning)
         if datetime.datetime.now() - last_cleaning_date > min_date_for_start_cleaning:
-            auto_clear_trash()
+            auto_clear_trash(config=config)
 
 
 @main.command()
 @click.argument('path', default='.trash', type=str)
 def new_trash_path(path):
     """Specify the path to the trash."""
-    create_new_trash_path(path=path)
+    create_new_trash_path(config=config, path=path)
 
 
 @main.command()
 @click.argument('path', default='.log_myrm', type=str)
 def new_log_path(path):
     """Specify the path to the log."""
-    create_new_log_path(path=path)
+    create_new_log_path(config=config, path=path)
 
 
 @main.command()
@@ -95,34 +97,34 @@ def new_log_path(path):
 @click.argument('number', type=int, default=100, required=False)
 def show_trash(verbose, number):
     """Show the contents of the basket in quantity 'number'."""
-    show_list_of_trash(verbose=verbose, number=number)
+    show_list_of_trash(config=config, verbose=verbose, number=number)
 
 
 @main.command()
 def clear_trash():
     """Clear the contents of the trash."""
-    clearing_trash()
+    clearing_trash(config=config)
 
 
 @main.command()
 @click.argument('files', nargs=-1, type=str)
 def delete_files(files):
     """delete files in the trash."""
-    deleting_files(files=files)
+    deleting_files(config=config, files=files)
 
 
 @main.command()
 @click.argument('pattern', type=str)
 def delete_by_pattern(pattern):
     """delete files by pattern in the trash."""
-    deleting_by_pattern(pattern=pattern)
+    deleting_by_pattern(config=config, pattern=pattern)
 
 
 @main.command()
 @click.argument('files', nargs=-1, type=str)
 def restore_files(files):
     """restore files from the trash."""
-    restoring_files(files=files)
+    restoring_files(config=config, files=files)
 
 
 @main.command()
@@ -138,7 +140,7 @@ def restore_files(files):
               help='Change the size(byte) at which the trash will be cleaned(recommended: --size=2000000000).')
 def settings(dry, silent, with_confirmation, policy, auto_cleaning, show_bar_status, time, size):
     """Editing program settings."""
-    edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation, policy=policy,
+    edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation, policy=policy, config=config,
                   auto_cleaning=auto_cleaning, show_bar_status=show_bar_status, time=time, size=size)
 
 
