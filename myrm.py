@@ -7,7 +7,8 @@ import datetime
 import logging
 from edit_config import read_config
 from config import Config
-from mainlogic import message, create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
+from different_little_things import message
+from mainlogic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
                       auto_clear_trash, deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 
