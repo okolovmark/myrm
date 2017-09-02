@@ -3,14 +3,13 @@
 import click
 import json
 import inspect
-import datetime
 import logging
 from edit_config import read_config
 from converter_to_JSON import converter_to_JSON
 from config import Config
-from additional_functions import message, log_config
+from additional_functions import message, log_config, auto_clear_trash_date
 from mainlogic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
-                      auto_clear_trash, deleting_files, deleting_by_pattern, restoring_files, edit_settings
+                      deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 
 config = Config()
@@ -18,7 +17,7 @@ config = Config()
 
 @click.group()
 @click.option('-f', '--file_of_settings', type=str, required=False,
-              help='One-time settings from file, if it is specified then one_time_settings is ignored')
+              help='One-time settings from JSON file, if it is specified then one_time_settings is ignored')
 @click.option('-o', '--one_time_settings', is_flag=True,
               help='One-time settings, if false, then the other lower options is ignored.')
 @click.option('-d', '--dry', is_flag=True, help='Imitation of program.')
@@ -31,8 +30,11 @@ config = Config()
               help='Change the time at which the trash will be cleaned(recommended: --time=10).')
 @click.option('-z', '--size', type=int, required=False,
               help='Change the size(byte) at which the trash will be cleaned(recommended: --size=2000000000).')
+@click.option('-l', '--level_log', type=int, required=False,
+              help='Change the level of the logging or omit the parameter to disable logging.')
+@click.option('-r', '--resolve_conflict', is_flag=True, help='Resolve a conflict of files.')
 def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, policy,
-         auto_cleaning, show_bar_status, time, size):
+         auto_cleaning, show_bar_status, time, size, level_log, resolve_conflict):
     """Here you can specify one-time settings, if you want and call the program functions."""
     global config
     config = read_config()
@@ -62,21 +64,14 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
         config.policy = policy
         config.call_auto_cleaning_if_memory_error = auto_cleaning
         config.show_bar_status = show_bar_status
+        config.resolve_conflict = resolve_conflict
+        config.level_log = level_log
         if time is not None:
             config.min_day_for_start_cleaning = time
         if size is not None:
             config.max_size_for_start_cleaning = size
     if config.policy <= 0:  # if <0 than policy = time, if 0 than policy = both,
-        last_cleaning_date = datetime.datetime(config.last_cleaning_date['year'],
-                                               config.last_cleaning_date['month'],
-                                               config.last_cleaning_date['day'],
-                                               config.last_cleaning_date['hour'],
-                                               config.last_cleaning_date['minute'],
-                                               config.last_cleaning_date['second'],
-                                               config.last_cleaning_date['microsecond'])
-        min_date_for_start_cleaning = datetime.timedelta(config.min_day_for_start_cleaning)
-        if datetime.datetime.now() - last_cleaning_date > min_date_for_start_cleaning:
-            auto_clear_trash(config=config)
+        auto_clear_trash_date(config)
 
 
 @main.command()

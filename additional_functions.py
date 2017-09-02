@@ -4,6 +4,8 @@ import click
 import os
 import inspect
 import logging
+import datetime
+from mainlogic import auto_clear_trash
 from config import Config
 
 
@@ -60,3 +62,16 @@ def get_size_trash(path):
             fp = os.path.join(dirpath, f)
             total_size += os.path.getsize(fp)
     return total_size
+
+
+def auto_clear_trash_date(config):
+    last_cleaning_date = datetime.datetime(config.last_cleaning_date['year'],
+                                           config.last_cleaning_date['month'],
+                                           config.last_cleaning_date['day'],
+                                           config.last_cleaning_date['hour'],
+                                           config.last_cleaning_date['minute'],
+                                           config.last_cleaning_date['second'],
+                                           config.last_cleaning_date['microsecond'])
+    min_date_for_start_cleaning = datetime.timedelta(config.min_day_for_start_cleaning)
+    if datetime.datetime.now() - last_cleaning_date > min_date_for_start_cleaning:
+        auto_clear_trash(config=config)
