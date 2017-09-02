@@ -1,5 +1,4 @@
-# myrm
-clone rm with buns
+Install: Write "pip -e ." in the terminal
 
 Usage: myrm [OPTIONS] COMMAND [ARGS]...
 
