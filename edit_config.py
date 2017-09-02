@@ -12,7 +12,7 @@ pass_config = click.make_pass_decorator(Config, ensure=True)
 @pass_config
 def read_config(config):
     try:
-        file_config = open('config.txt', 'r')
+        file_config = open('config.json', 'r')
     except IOError:
         if not config.silent:
             click.echo('Could not open file')
@@ -36,5 +36,5 @@ def read_config(config):
 
 @pass_config
 def write_config(config):
-    with open('config.txt', 'w') as file_config:
+    with open('config.json', 'w') as file_config:
         file_config.write(config.toJSON())

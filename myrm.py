@@ -6,6 +6,7 @@ import inspect
 import datetime
 import logging
 from edit_config import read_config
+from converter_to_JSON import converter_to_JSON
 from config import Config
 from additional_functions import message, log_config
 from mainlogic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
@@ -90,6 +91,13 @@ def new_trash_path(path):
 def new_log_path(path):
     """Specify the path to the log."""
     create_new_log_path(config=config, path=path)
+
+
+@main.command()
+@click.argument('path_txt_file', default='config.txt', type=str)
+def load_txt_config(path_txt_file):
+    """Loads the txt configuration file."""
+    converter_to_JSON(config_JSON_file='config.json', config_txt_file=path_txt_file)
 
 
 @main.command()
