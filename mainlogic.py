@@ -294,9 +294,10 @@ def restoring_files(files, config=Config()):
                       ) as info_file:
                 old_path = info_file.readline().decode('utf8')
                 if os.path.exists(old_path):
-                    message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
-                    logging.error('file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
-                    continue
+                    if not config.resolve_conflict:
+                        message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
+                        logging.error('file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
+                        continue
         except IOError:
             message(config, 'This file can not be restored')
             logging.error('This file can not be restored')
@@ -323,7 +324,7 @@ def restoring_files(files, config=Config()):
 
 def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False,
                   auto_cleaning=False, show_bar_status=False, time=None, size=None,
-                  level_log=sys.maxint, config=Config()):
+                  resolve_conflict=False, level_log=sys.maxint, config=Config()):
     """Editing program settings."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
@@ -335,6 +336,7 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     config.policy = policy
     config.call_auto_cleaning_if_memory_error = auto_cleaning
     config.show_bar_status = show_bar_status
+    config.resolve_conflict = resolve_conflict
     if level_log is sys.maxint or level_log is None:
         config.level_log = sys.maxint
         message(config, 'Logging is disabled')
@@ -364,6 +366,12 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     else:
         message(config, 'Now program operation with reports')
         logging.info('Now program operation with reports')
+    if config.resolve_conflict:
+        message(config, 'Now the program will replace files')
+        logging.info('Now the program will replace files')
+    else:
+        message(config, 'Now the program will not replace files')
+        logging.info('Now the program will not replace files')
     if config.with_confirmation:
         message(config, 'Now all actions require confirmation')
         logging.info('Now all actions require confirmation')

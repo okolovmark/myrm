@@ -143,17 +143,18 @@ def restore_files(files):
               help='Select the trash cleaning policy: >0=size, <0=time, 0=both')
 @click.option('-a', '--auto_cleaning', is_flag=True, help='Call function auto_clear_trash if memory is full.')
 @click.option('-b', '--show_bar_status', is_flag=True, help='Show bar status.')
+@click.option('-r', '--resolve_conflict', is_flag=True, help='Resolve a conflict of files.')
 @click.option('-t', '--time', type=int, required=False,
               help='Change the time at which the trash will be cleaned(recommended: --time=10).')
 @click.option('-z', '--size', type=int, required=False,
               help='Change the size(byte) at which the trash will be cleaned(recommended: --size=2000000000).')
 @click.option('-l', '--level_log', type=int, required=False,
               help='Change the level of the logging or omit the parameter to disable logging.')
-def settings(dry, silent, with_confirmation, policy, auto_cleaning, show_bar_status, time, size, level_log):
+def settings(dry, silent, with_confirmation, policy, auto_cleaning, show_bar_status, resolve_conflict, time, size, level_log):
     """Editing program settings."""
     edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation, policy=policy,
                   config=config, auto_cleaning=auto_cleaning, show_bar_status=show_bar_status,
-                  time=time, size=size, level_log=level_log)
+                  time=time, size=size, level_log=level_log, resolve_conflict=resolve_conflict)
 
 
 if __name__ == '__main__':

@@ -21,6 +21,7 @@ class Config(object):
         self.call_auto_cleaning_if_memory_error = False
         self.show_bar_status = False
         self.level_log = sys.maxint
+        self.resolve_conflict = False
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
