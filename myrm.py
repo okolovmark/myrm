@@ -8,7 +8,7 @@ from edit_config import read_config
 from converter_to_JSON import converter_to_JSON
 from config import Config
 from additional_functions import message, log_config, auto_clear_trash_date
-from mainlogic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
+from main_logic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
                       deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 
