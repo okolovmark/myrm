@@ -126,67 +126,7 @@ def clearing_trash(config=Config()):
             os.makedirs(config.path_to_trash)
 
 
-def auto_clear_trash(config=Config()):
-    """Clear automatically the contents of the trash."""
-    def sort_by_count_slash(string):
-        count_slash = 0
-        for char in string:
-            if char == '/':
-                count_slash = count_slash + 1
-        return count_slash
-    log_config(config=config)
-    logging.info(inspect.stack()[0][3])
-    if not confirmation(config):
-        return
-    if not config.dry:
-        list_of_files = []
-        list_of_dirs = []
-        for dirpath, dirs, files in os.walk(config.path_to_trash):
-            iteration_files = 0
-            iteration_dirs = 0
-            total_files = len(files)
-            total_dirs = len(dirs)
-            for file in files:
-                if config.show_bar_status:
-                    iteration_files += 1
-                    print_progress_bar(iteration_files, total_files, config=config,
-                                       prefix='Progress counting files:', suffix='Complete', length=50)
-                list_of_files.append(os.path.abspath(os.path.join(dirpath, file)))
-            for dir in dirs:
-                if config.show_bar_status:
-                    iteration_dirs += 1
-                    print_progress_bar(iteration_dirs, total_dirs,  config=config,
-                                       prefix='Progress counting dirs:', suffix='Complete', length=50)
-                list_of_dirs.append(os.path.abspath(os.path.join(dirpath, dir)))
-        list_of_dirs.sort(key=sort_by_count_slash, reverse=True)
-        iteration_files = 0
-        iteration_dirs = 0
-        total_files = len(list_of_files)
-        total_dirs = len(list_of_dirs)
-        for file in list_of_files:
-            if config.show_bar_status:
-                iteration_files += 1
-                print_progress_bar(iteration_files, total_files, config=config,
-                                   prefix='Progress remove files:', suffix='Complete', length=50)
-            os.remove(file)
-        for dir in list_of_dirs:
-            if config.show_bar_status:
-                iteration_dirs += 1
-                print_progress_bar(iteration_dirs, total_dirs, config=config,
-                                   prefix='Progress remove dirs:', suffix='Complete', length=50)
-            os.rmdir(dir)
-    message(config, 'Automatic cleaning of the trash occurred')
-    logging.info('Automatic cleaning of the trash occurred')
-    if not config.dry:
-        last_cleaning_date = datetime.datetime.now()
-        config.last_cleaning_date['year'] = last_cleaning_date.year
-        config.last_cleaning_date['month'] = last_cleaning_date.month
-        config.last_cleaning_date['day'] = last_cleaning_date.day
-        config.last_cleaning_date['hour'] = last_cleaning_date.hour
-        config.last_cleaning_date['minute'] = last_cleaning_date.minute
-        config.last_cleaning_date['second'] = last_cleaning_date.second
-        config.last_cleaning_date['microsecond'] = last_cleaning_date.microsecond
-        write_config(config)
+
 
 
 def deleting_files(files, config=Config()):

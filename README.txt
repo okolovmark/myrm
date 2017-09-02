@@ -1,6 +1,11 @@
-Install: Write "pip -e ." in the terminal
+About:
+Program allows you to delete and restore folders and files
 
-Usage: myrm [OPTIONS] COMMAND [ARGS]...
+Install:
+Write "pip -e ." in the terminal
+
+Usage:
+myrm [OPTIONS] COMMAND [ARGS]...
 
   Here you can specify one-time settings, if you want and call the program
   functions.
@@ -24,7 +29,10 @@ Options:
                                cleaned(recommended: --time=10).
   -z, --size INTEGER           Change the size(byte) at which the trash will
                                be cleaned(recommended: --size=2000000000).
-  --help                       Show this message and exit.
+  -l, --level_log INTEGER      Change the level of the logging or omit the
+                               parameter to disable logging.
+  -r, --resolve_conflict       Resolve a conflict of files.
+
 
 Commands:
   clear_trash        Clear the contents of the trash.
