@@ -251,7 +251,7 @@ def deleting_files(files, config=Config()):
                     info_file.write(os.path.abspath(file).encode('utf8'))
             message(config, 'The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
             logging.error('The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
-        if config.policy:  # if true than policy = size
+        if config.policy >= 0:  # if >0 than policy = size, if 0 than policy = both
             if config.max_size_for_start_cleaning < get_size_trash(config.path_to_trash):
                 auto_clear_trash(config=config)
 
@@ -370,9 +370,12 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     else:
         message(config, 'Now all actions don\'t require confirmation')
         logging.info('Now all actions don\'t require confirmation')
-    if config.policy:
+    if config.policy > 0:
         message(config, 'The size policy has been activated')
         logging.info('The size policy has been activated')
+    elif config.policy == 0:
+        message(config, 'The time and size policy has been activated')
+        logging.info('The time and size policy has been activated')
     else:
         message(config, 'The time policy has been activated')
         logging.info('The time policy has been activated')

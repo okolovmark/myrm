@@ -66,7 +66,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
             config.min_day_for_start_cleaning = time
         if size is not None:
             config.max_size_for_start_cleaning = size
-    if not config.policy:  # if false than policy = time
+    if config.policy <= 0:  # if <0 than policy = time, if 0 than policy = both,
         last_cleaning_date = datetime.datetime(config.last_cleaning_date['year'],
                                                config.last_cleaning_date['month'],
                                                config.last_cleaning_date['day'],
@@ -139,7 +139,8 @@ def restore_files(files):
 @click.option('-d', '--dry', is_flag=True, help='Imitation of program.')
 @click.option('-s', '--silent', is_flag=True, help='Program operation without reports.')
 @click.option('-w', '--with_confirmation', is_flag=True, help='All actions require confirmation.')
-@click.option('-p', '--policy', is_flag=True, help='Select the trash cleaning policy: True=size, False=time.')
+@click.option('-p', '--policy', type=int, required=False, default=0,
+              help='Select the trash cleaning policy: >0=size, <0=time, 0=both')
 @click.option('-a', '--auto_cleaning', is_flag=True, help='Call function auto_clear_trash if memory is full.')
 @click.option('-b', '--show_bar_status', is_flag=True, help='Show bar status.')
 @click.option('-t', '--time', type=int, required=False,
