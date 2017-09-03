@@ -3,11 +3,11 @@
     "dry": false, 
     "last_cleaning_date": {
         "day": 3, 
-        "hour": 0, 
-        "microsecond": 139774, 
-        "minute": 57, 
+        "hour": 5, 
+        "microsecond": 491928, 
+        "minute": 21, 
         "month": 9, 
-        "second": 8, 
+        "second": 15, 
         "year": 2017
     }, 
     "level_log": 10, 
@@ -17,7 +17,7 @@
     "path_to_trash": ".trash", 
     "policy": 0, 
     "resolve_conflict": false, 
-    "show_bar_status": true, 
+    "show_bar_status": false, 
     "silent": false, 
     "with_confirmation": false
 }

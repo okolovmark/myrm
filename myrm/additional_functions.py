@@ -8,6 +8,15 @@ import logging
 import datetime
 from edit_config import write_config
 from config import Config
+from enum import Enum
+
+
+class Codes(Enum):
+    GOOD = 0
+    CONFLICT = 1
+    BAD = 2
+    NO_FILE = 3
+    NOT_CONFIRMATION = 4
 
 
 def log_config(config=Config()):

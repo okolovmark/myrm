@@ -9,9 +9,10 @@ import datetime
 import logging
 import sys
 import multiprocessing
+import click
 from edit_config import write_config
 from config import Config
-from additional_functions import (log_config, message, confirmation,
+from additional_functions import (Codes, log_config, message, confirmation,
                                   print_progress_bar, get_size_trash, auto_clear_trash)
 
 
@@ -19,9 +20,11 @@ def create_new_trash_path(config=Config(), path='.trash'):
     """Specify the path to the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+    code = Codes.GOOD
 
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     try:
         if os.path.basename(path)[0] == '.':
@@ -41,15 +44,19 @@ def create_new_trash_path(config=Config(), path='.trash'):
         message(config, 'Remains the trash path: {path}'.format(path=config.path_to_trash))
         logging.error('Such folder already exists')
         logging.error('Remains the trash path: {path}'.format(path=config.path_to_trash))
+        code = Codes.CONFLICT
+    return code
 
 
 def create_new_log_path(config=Config(), path='.log_myrm'):
     """Specify the path to the log."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-
+    code = Codes.GOOD
+    
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     try:
         if os.path.basename(path)[0] == '.':
@@ -71,17 +78,21 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
         message(config, 'Remains the trash path: {path}'.format(path=config.path_to_log))
         logging.error('incorrect path')
         logging.error('Remains the trash path: {path}'.format(path=config.path_to_log))
+        code = Codes.BAD
     except OSError:
-        pass
+        code = Codes.BAD
+    return code
 
 
 def show_list_of_trash(config=Config(), verbose=False, number=100):
     """Show the contents of the basket in quantity 'number'."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+    code = Codes.GOOD
 
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     if verbose:
         i = 0
@@ -113,15 +124,18 @@ def show_list_of_trash(config=Config(), verbose=False, number=100):
     else:
         message(config, os.listdir(config.path_to_trash)[-number:])
         logging.info(os.listdir(config.path_to_trash)[-number:])
+    return code
 
 
 def clearing_trash(config=Config()):
     """Clear the contents of the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-
+    code = Codes.GOOD
+    
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     try:
         if not config.dry:
@@ -132,6 +146,7 @@ def clearing_trash(config=Config()):
     except OSError:
         message(config, "Trash already cleared")
         logging.info("Trash already cleared")
+        code = Codes.BAD
     finally:
         if not config.dry:
             last_cleaning_date = datetime.datetime.now()
@@ -144,9 +159,14 @@ def clearing_trash(config=Config()):
             config.last_cleaning_date['microsecond'] = last_cleaning_date.microsecond
             write_config(config)
             os.makedirs(config.path_to_trash)
+    return code
 
 
 def deleting_file(file, config=Config(), iteration=0, total_files=1):
+    code = Codes.GOOD
+    log_config(config=config)
+    logging.info(inspect.stack()[0][3])
+    
     if config.show_bar_status:
         iteration += 1
         print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', length=50, config=config)
@@ -154,12 +174,16 @@ def deleting_file(file, config=Config(), iteration=0, total_files=1):
     if not os.path.exists(os.path.abspath(file)):
         message(config, 'The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
         logging.error('The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
-        return
+        code = Codes.NO_FILE
+        logging.info('return code: {}'.format(code))
+        return code
 
     if os.path.abspath(file) == config.path_to_trash:
         message(config, 'You can not delete a trash')
         logging.error('You can not delete a trash')
-        return
+        code = Codes.BAD
+        logging.info('return code: {}'.format(code))
+        return code
 
     # Name conflict solution
     path_this_file_in_trash = os.path.join(config.path_to_trash,
@@ -185,9 +209,11 @@ def deleting_file(file, config=Config(), iteration=0, total_files=1):
     except OSError:
         message(config, 'No such file or directory')
         logging.error('No such file or directory')
+        code = Codes.NO_FILE
     except MemoryError:
         message(config, 'memory is full')
         logging.error('memory is full')
+        code = Codes.BAD
 
         if config.call_auto_cleaning_if_memory_error:
             message(config, 'Auto cleaning is called')
@@ -212,30 +238,37 @@ def deleting_file(file, config=Config(), iteration=0, total_files=1):
     if config.policy >= 0:  # if >0 than policy = size, if 0 than policy = both
         if config.max_size_for_start_cleaning < get_size_trash(config.path_to_trash):
             auto_clear_trash(config=config)
+    logging.info('return code: {}'.format(code))
+    return code
 
 
 def deleting_files(files, config=Config()):
     """delete files in the trash."""
+    code = Codes.GOOD
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     iteration = 0
     total_files = len(files)
 
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     for file in files:
         p = multiprocessing.Process(target=deleting_file, args=(file, config, iteration, total_files))
         p.start()
+    return code
 
 
 def deleting_by_pattern(pattern, config=Config()):
     """delete files by pattern in the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-
+    code = Codes.GOOD
+    
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
     files = glob.glob(pattern)
 
     if files:
@@ -243,9 +276,15 @@ def deleting_by_pattern(pattern, config=Config()):
     else:
         message(config, 'Files not found')
         logging.error('Files not found')
+        code = Codes.NO_FILE
+    return code
 
 
 def restoring_file(file, config=Config(), iteration=0, total_files=1):
+    code = Codes.GOOD
+    log_config(config=config)
+    logging.info(inspect.stack()[0][3])
+    
     if config.show_bar_status:
         iteration += 1
         print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', config=config, length=50)
@@ -253,7 +292,9 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
     if not os.path.exists(os.path.join(config.path_to_trash, file)):
         message(config, 'The file "{}" does not exist'.format(file).encode('utf8'))
         logging.error('The file "{}" does not exist'.format(file).encode('utf8'))
-        return
+        code = Codes.NO_FILE
+        logging.info('return code: {}'.format(code))
+        return code
 
     try:
         with open(os.path.join(config.path_to_trash,
@@ -267,10 +308,13 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
                 if not config.resolve_conflict:
                     message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
                     logging.error('file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
-                    return
+                    code = Codes.CONFLICT
+                    logging.info('return code: {}'.format(code))
+                    return code
     except IOError:
         message(config, 'This file can not be restored')
         logging.error('This file can not be restored')
+        code = Codes.BAD
     else:
         try:
             if not config.dry:
@@ -280,6 +324,7 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
         except OSError:
             message(config, 'Such file already exists')
             logging.error('Such file already exists')
+            code = Codes.CONFLICT
         else:
             message(config, 'The file was successfully restored')
             logging.info('The file was successfully restored')
@@ -289,7 +334,9 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
                                            '.info_' +
                                            os.path.basename(os.path.abspath(file))))
             except OSError:
-                pass
+                code = Codes.BAD
+    logging.info('return code: {}'.format(code))
+    return code
 
 
 def restoring_files(files, config=Config()):
@@ -298,13 +345,16 @@ def restoring_files(files, config=Config()):
     logging.info(inspect.stack()[0][3])
     iteration = 0
     total_files = len(files)
-
+    code = Codes.GOOD
+    
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     for file in files:
         p = multiprocessing.Process(target=restoring_file, args=(file, config, iteration, total_files))
         p.start()
+    return code
 
 
 def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False,
@@ -313,9 +363,11 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     """Editing program settings."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-
+    code = Codes.GOOD
+    
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     config.dry = dry
     config.silent = silent
@@ -397,3 +449,4 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     else:
         message(config, 'The bar status has been deactivated')
         logging.info('The bar status has been deactivated')
+    return code

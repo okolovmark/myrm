@@ -14,6 +14,7 @@ setup(
         'myrm.additional_functions'],
     install_requires=[
         'Click',
+        'Enum',
     ],
     long_description=open(join(dirname(__file__), 'README.txt')).read(),
     entry_points='''
