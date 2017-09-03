@@ -1,7 +1,9 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""its contain class of config"""
 import json
 import sys
+
 
 class Config(object):
     def __init__(self):

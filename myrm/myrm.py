@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""its main file for work with trash in terminal"""
 import click
 import json
 import inspect
@@ -10,7 +11,6 @@ from config import Config
 from additional_functions import message, log_config, auto_clear_trash_date
 from main_logic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
                       deleting_files, deleting_by_pattern, restoring_files, edit_settings
-
 
 config = Config()
 

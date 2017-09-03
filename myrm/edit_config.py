@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""its contain functions that help edit config"""
 import click
 import logging
 import json

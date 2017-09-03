@@ -11,10 +11,10 @@ myrm
   main_logic.py
   myrm.py
   README.txt
-  setup.py
+setup.py
 
 Install:
-Write "pip -e ." in the terminal
+Write "python setup.py install" in the terminal
 
 Config formats:
 JSON:

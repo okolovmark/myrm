@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""its contain all main functions for work with trash"""
 import os
 import glob
 import shutil
@@ -9,7 +10,8 @@ import logging
 import sys
 from edit_config import write_config
 from config import Config
-from additional_functions import log_config, message, confirmation, print_progress_bar, get_size_trash
+from additional_functions import log_config, message, confirmation, \
+                                 print_progress_bar, get_size_trash, auto_clear_trash
 
 
 def create_new_trash_path(config=Config(), path='.trash'):

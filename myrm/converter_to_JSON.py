@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""contain function that convert txt file to JSON file"""
 
 
 def converter_to_JSON(config_txt_file, config_JSON_file):

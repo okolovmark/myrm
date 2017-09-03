@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+"""It contains functions that simplify the code."""
 import click
 import os
 import inspect
