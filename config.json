@@ -17,7 +17,7 @@
     "path_to_trash": ".trash", 
     "policy": 0, 
     "resolve_conflict": false, 
-    "show_bar_status": false, 
+    "show_bar_status": true, 
     "silent": false, 
     "with_confirmation": false
 }

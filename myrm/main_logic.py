@@ -8,6 +8,7 @@ import inspect
 import datetime
 import logging
 import sys
+import multiprocessing
 from edit_config import write_config
 from config import Config
 from additional_functions import (log_config, message, confirmation,
@@ -145,6 +146,74 @@ def clearing_trash(config=Config()):
             os.makedirs(config.path_to_trash)
 
 
+def deleting_file(file, config=Config(), iteration=0, total_files=1):
+    if config.show_bar_status:
+        iteration += 1
+        print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', length=50, config=config)
+
+    if not os.path.exists(os.path.abspath(file)):
+        message(config, 'The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
+        logging.error('The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
+        return
+
+    if os.path.abspath(file) == config.path_to_trash:
+        message(config, 'You can not delete a trash')
+        logging.error('You can not delete a trash')
+        return
+
+    # Name conflict solution
+    path_this_file_in_trash = os.path.join(config.path_to_trash,
+                                           os.path.basename(os.path.abspath(file)))
+    info = ''
+
+    if os.path.exists(path_this_file_in_trash):
+        count = 1
+        while True:
+            if os.path.exists("{}_copy_{}".format(path_this_file_in_trash, count)):
+                count += 1
+            else:
+                break
+
+        path_this_file_in_trash += "_copy_{}".format(count)
+        info += "_copy_{}".format(count)
+
+    try:
+        if not config.dry:
+            if not os.path.exists(config.path_to_trash):
+                os.makedirs(config.path_to_trash)
+            os.rename(os.path.abspath(file), path_this_file_in_trash)
+    except OSError:
+        message(config, 'No such file or directory')
+        logging.error('No such file or directory')
+    except MemoryError:
+        message(config, 'memory is full')
+        logging.error('memory is full')
+
+        if config.call_auto_cleaning_if_memory_error:
+            message(config, 'Auto cleaning is called')
+            logging.error('Auto cleaning is called')
+            auto_clear_trash(config=config)
+        else:
+            message(config, 'Free up memory')
+            logging.error('Free up memory')
+    else:
+        if not config.dry:
+            with open(os.path.join(config.path_to_trash,
+                                   '.info_' +
+                                           os.path.basename(os.path.abspath(file)) +
+                                           info),
+                      'w'
+                      ) as info_file:
+                info_file.write(os.path.abspath(file).encode('utf8'))
+
+        message(config, 'The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
+        logging.info('The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
+
+    if config.policy >= 0:  # if >0 than policy = size, if 0 than policy = both
+        if config.max_size_for_start_cleaning < get_size_trash(config.path_to_trash):
+            auto_clear_trash(config=config)
+
+
 def deleting_files(files, config=Config()):
     """delete files in the trash."""
     log_config(config=config)
@@ -156,71 +225,8 @@ def deleting_files(files, config=Config()):
         return
 
     for file in files:
-        if config.show_bar_status:
-            iteration += 1
-            print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', length=50, config=config)
-
-        if not os.path.exists(os.path.abspath(file)):
-            message(config, 'The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
-            logging.error('The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
-            continue
-
-        if os.path.abspath(file) == config.path_to_trash:
-            message(config, 'You can not delete a trash')
-            logging.error('You can not delete a trash')
-            continue
-
-        # Name conflict solution
-        path_this_file_in_trash = os.path.join(config.path_to_trash,
-                                               os.path.basename(os.path.abspath(file)))
-        info = ''
-
-        if os.path.exists(path_this_file_in_trash):
-            count = 1
-            while True:
-                if os.path.exists("{}_copy_{}".format(path_this_file_in_trash, count)):
-                    count += 1
-                else:
-                    break
-
-            path_this_file_in_trash += "_copy_{}".format(count)
-            info += "_copy_{}".format(count)
-
-        try:
-            if not config.dry:
-                if not os.path.exists(config.path_to_trash):
-                    os.makedirs(config.path_to_trash)
-                os.rename(os.path.abspath(file), path_this_file_in_trash)
-        except OSError:
-            message(config, 'No such file or directory')
-            logging.error('No such file or directory')
-        except MemoryError:
-            message(config, 'memory is full')
-            logging.error('memory is full')
-
-            if config.call_auto_cleaning_if_memory_error:
-                message(config, 'Auto cleaning is called')
-                logging.error('Auto cleaning is called')
-                auto_clear_trash(config=config)
-            else:
-                message(config, 'Free up memory')
-                logging.error('Free up memory')
-        else:
-            if not config.dry:
-                with open(os.path.join(config.path_to_trash,
-                                       '.info_' +
-                                       os.path.basename(os.path.abspath(file)) +
-                                       info),
-                          'w'
-                          ) as info_file:
-                    info_file.write(os.path.abspath(file).encode('utf8'))
-
-            message(config, 'The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
-            logging.error('The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
-
-        if config.policy >= 0:  # if >0 than policy = size, if 0 than policy = both
-            if config.max_size_for_start_cleaning < get_size_trash(config.path_to_trash):
-                auto_clear_trash(config=config)
+        p = multiprocessing.Process(target=deleting_file, args=(file, config, iteration, total_files))
+        p.start()
 
 
 def deleting_by_pattern(pattern, config=Config()):
@@ -239,6 +245,53 @@ def deleting_by_pattern(pattern, config=Config()):
         logging.error('Files not found')
 
 
+def restoring_file(file, config=Config(), iteration=0, total_files=1):
+    if config.show_bar_status:
+        iteration += 1
+        print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', config=config, length=50)
+
+    if not os.path.exists(os.path.join(config.path_to_trash, file)):
+        message(config, 'The file "{}" does not exist'.format(file).encode('utf8'))
+        logging.error('The file "{}" does not exist'.format(file).encode('utf8'))
+        return
+
+    try:
+        with open(os.path.join(config.path_to_trash,
+                               '.info_' +
+                                       os.path.basename(os.path.abspath(file))),
+                  'r'
+                  ) as info_file:
+            old_path = info_file.readline().decode('utf8')
+
+            if os.path.exists(old_path):
+                if not config.resolve_conflict:
+                    message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
+                    logging.error('file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
+                    return
+    except IOError:
+        message(config, 'This file can not be restored')
+        logging.error('This file can not be restored')
+    else:
+        try:
+            if not config.dry:
+                os.rename(
+                    os.path.abspath(os.path.join(config.path_to_trash, os.path.basename(os.path.abspath(file)))),
+                    old_path)
+        except OSError:
+            message(config, 'Such file already exists')
+            logging.error('Such file already exists')
+        else:
+            message(config, 'The file was successfully restored')
+            logging.info('The file was successfully restored')
+            try:
+                if not config.dry:
+                    os.remove(os.path.join(config.path_to_trash,
+                                           '.info_' +
+                                           os.path.basename(os.path.abspath(file))))
+            except OSError:
+                pass
+
+
 def restoring_files(files, config=Config()):
     """restore files from the trash."""
     log_config(config=config)
@@ -250,50 +303,8 @@ def restoring_files(files, config=Config()):
         return
 
     for file in files:
-        if config.show_bar_status:
-            iteration += 1
-            print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', config=config, length=50)
-
-        if not os.path.exists(os.path.join(config.path_to_trash, file)):
-            message(config, 'The file "{}" does not exist'.format(file).encode('utf8'))
-            logging.error('The file "{}" does not exist'.format(file).encode('utf8'))
-            continue
-
-        try:
-            with open(os.path.join(config.path_to_trash,
-                                   '.info_' +
-                                   os.path.basename(os.path.abspath(file))),
-                      'r'
-                      ) as info_file:
-                old_path = info_file.readline().decode('utf8')
-
-                if os.path.exists(old_path):
-                    if not config.resolve_conflict:
-                        message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
-                        logging.error('file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
-                        continue
-        except IOError:
-            message(config, 'This file can not be restored')
-            logging.error('This file can not be restored')
-        else:
-            try:
-                if not config.dry:
-                    os.rename(
-                        os.path.abspath(os.path.join(config.path_to_trash, os.path.basename(os.path.abspath(file)))),
-                        old_path)
-            except OSError:
-                message(config, 'Such file already exists')
-                logging.error('Such file already exists')
-            else:
-                message(config, 'The file was successfully restored')
-                logging.info('The file was successfully restored')
-                try:
-                    if not config.dry:
-                        os.remove(os.path.join(config.path_to_trash,
-                                               '.info_' +
-                                               os.path.basename(os.path.abspath(file))))
-                except OSError:
-                    pass
+        p = multiprocessing.Process(target=restoring_file, args=(file, config, iteration, total_files))
+        p.start()
 
 
 def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False,

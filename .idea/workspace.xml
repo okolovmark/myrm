@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e472fc96-5f9f-4799-af12-3c2063091c96" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/additional_functions.py" afterPath="$PROJECT_DIR$/myrm/additional_functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/main_logic.py" afterPath="$PROJECT_DIR$/myrm/main_logic.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/myrm.py" afterPath="$PROJECT_DIR$/myrm/myrm.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,13 +25,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_logic.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main_logic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="363" column="42" lean-forward="false" selection-start-line="363" selection-start-column="41" selection-end-line="363" selection-end-column="42" />
+            <state relative-caret-position="49">
+              <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
               <folding>
                 <element signature="e#106#115#0" expanded="true" />
+                <element signature="e#507#1501#0" expanded="false" />
+                <element signature="e#1568#2644#0" expanded="false" />
+                <element signature="e#2719#4163#0" expanded="false" />
+                <element signature="e#4207#5346#0" expanded="false" />
+                <element signature="e#5423#8154#0" expanded="false" />
+                <element signature="e#8205#8548#0" expanded="false" />
+                <element signature="e#8606#8953#0" expanded="false" />
+                <element signature="e#9031#11032#0" expanded="false" />
+                <element signature="e#11084#11431#0" expanded="false" />
+                <element signature="e#11686#15329#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -70,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="additional_functions.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="additional_functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myrm/additional_functions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="107">
@@ -96,9 +105,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/myrm/converter_to_JSON.py" />
-        <option value="$PROJECT_DIR$/myrm/main_logic.py" />
         <option value="$PROJECT_DIR$/myrm/myrm.py" />
         <option value="$PROJECT_DIR$/myrm/additional_functions.py" />
+        <option value="$PROJECT_DIR$/myrm/main_logic.py" />
       </list>
     </option>
   </component>
@@ -177,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504402830902</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="restyling code">
+      <created>1504403608116</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1504403608116</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -212,7 +228,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="restyling code" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -231,16 +249,6 @@
         <state relative-caret-position="124">
           <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="363" column="42" lean-forward="false" selection-start-line="363" selection-start-column="41" selection-end-line="363" selection-end-column="42" />
-          <folding>
-            <element signature="e#106#115#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -276,6 +284,26 @@
           <caret line="53" column="22" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="22" />
           <folding>
             <element signature="e#101#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+          <folding>
+            <element signature="e#106#115#0" expanded="true" />
+            <element signature="e#507#1501#0" expanded="false" />
+            <element signature="e#1568#2644#0" expanded="false" />
+            <element signature="e#2719#4163#0" expanded="false" />
+            <element signature="e#4207#5346#0" expanded="false" />
+            <element signature="e#5423#8154#0" expanded="false" />
+            <element signature="e#8205#8548#0" expanded="false" />
+            <element signature="e#8606#8953#0" expanded="false" />
+            <element signature="e#9031#11032#0" expanded="false" />
+            <element signature="e#11084#11431#0" expanded="false" />
+            <element signature="e#11686#15329#0" expanded="false" />
           </folding>
         </state>
       </provider>
