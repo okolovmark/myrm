@@ -9,7 +9,6 @@ import datetime
 import logging
 import sys
 import multiprocessing
-import click
 from edit_config import write_config
 from config import Config
 from additional_functions import (Codes, log_config, message, confirmation,
@@ -53,17 +52,25 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     code = Codes.GOOD
-    
+    marker = '_itislogfilemyrm_'
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
         return code
 
     try:
-        if os.path.basename(path)[0] == '.':
-            hidden_log = os.path.abspath(path) + '_itislogfilemyrm_'
+        if (os.path.basename(path)[0] == '.'
+            and os.path.basename(path)[os.path.basename(path).__len__() - marker.__len__():] != marker):
+            hidden_log = os.path.abspath(path) + marker
+        elif (os.path.basename(path)[0] == '.'
+              and os.path.basename(path)[os.path.basename(path).__len__() - marker.__len__():] == marker):
+            hidden_log = os.path.abspath(path)
+        elif (os.path.basename(path)[0] != '.'
+              and os.path.basename(path)[os.path.basename(path).__len__() - marker.__len__():] != marker):
+            hidden_log = (os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.'
+                          + os.path.basename(path) + marker)
         else:
             hidden_log = (os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.'
-                         + os.path.basename(path) + '_itislogfilemyrm_ ')
+                          + os.path.basename(path))
 
         if not config.dry:
             with open(hidden_log, 'w'):
@@ -132,7 +139,7 @@ def clearing_trash(config=Config()):
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     code = Codes.GOOD
-    
+
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
         return code
@@ -166,7 +173,7 @@ def deleting_file(file, config=Config(), iteration=0, total_files=1):
     code = Codes.GOOD
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-    
+
     if config.show_bar_status:
         iteration += 1
         print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', length=50, config=config)
@@ -265,7 +272,7 @@ def deleting_by_pattern(pattern, config=Config()):
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     code = Codes.GOOD
-    
+
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
         return code
@@ -284,7 +291,7 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
     code = Codes.GOOD
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
-    
+
     if config.show_bar_status:
         iteration += 1
         print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', config=config, length=50)
@@ -346,7 +353,7 @@ def restoring_files(files, config=Config()):
     iteration = 0
     total_files = len(files)
     code = Codes.GOOD
-    
+
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
         return code
@@ -364,7 +371,7 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     code = Codes.GOOD
-    
+
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
         return code
