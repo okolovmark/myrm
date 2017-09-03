@@ -141,7 +141,7 @@ def auto_clear_trash(config=Config()):
 
     message(config, 'Automatic cleaning of the trash occurred')
     logging.info('Automatic cleaning of the trash occurred')
-    
+
     if not config.dry:
         last_cleaning_date = datetime.datetime.now()
         config.last_cleaning_date['year'] = last_cleaning_date.year

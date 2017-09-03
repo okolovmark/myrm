@@ -10,8 +10,8 @@ import logging
 import sys
 from edit_config import write_config
 from config import Config
-from additional_functions import log_config, message, confirmation, \
-                                 print_progress_bar, get_size_trash, auto_clear_trash
+from additional_functions import (log_config, message, confirmation,
+                                  print_progress_bar, get_size_trash, auto_clear_trash)
 
 
 def create_new_trash_path(config=Config(), path='.trash'):
@@ -54,8 +54,8 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
         if os.path.basename(path)[0] == '.':
             hidden_log = os.path.abspath(path) + '_itislogfilemyrm_'
         else:
-            hidden_log = os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.' \
-                         + os.path.basename(path) + '_itislogfilemyrm_ '
+            hidden_log = (os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.'
+                         + os.path.basename(path) + '_itislogfilemyrm_ ')
 
         if not config.dry:
             with open(hidden_log, 'w'):
