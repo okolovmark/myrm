@@ -18,17 +18,21 @@ def create_new_trash_path(config=Config(), path='.trash'):
     """Specify the path to the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
+
     try:
         if os.path.basename(path)[0] == '.':
             hidden_trash = os.path.abspath(path)
         else:
             hidden_trash = os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.' + os.path.basename(path)
+
         if not config.dry:
             os.makedirs(hidden_trash)
             config.path_to_trash = hidden_trash
             write_config(config)
+
         message(config, 'New trash path: {path}'.format(path=hidden_trash))
         logging.info('New trash path: {path}'.format(path=hidden_trash))
     except OSError:
@@ -42,19 +46,23 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
     """Specify the path to the log."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
+
     try:
         if os.path.basename(path)[0] == '.':
             hidden_log = os.path.abspath(path) + '_itislogfilemyrm_'
         else:
             hidden_log = os.path.abspath(path)[:-os.path.basename(path).__len__()] + '.' \
                          + os.path.basename(path) + '_itislogfilemyrm_ '
+
         if not config.dry:
             with open(hidden_log, 'w'):
                 pass
             config.path_to_log = hidden_log
             write_config(config)
+
         message(config, 'New log path: {path}'.format(path=hidden_log))
         logging.info('New log path: {path}'.format(path=hidden_log))
     except IOError:
@@ -70,8 +78,10 @@ def show_list_of_trash(config=Config(), verbose=False, number=100):
     """Show the contents of the basket in quantity 'number'."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
+
     if verbose:
         i = 0
         message(config, 'Objects in the basket occupy {} bytes'.format(get_size_trash(config.path_to_trash)))
@@ -85,14 +95,18 @@ def show_list_of_trash(config=Config(), verbose=False, number=100):
                     message(config, os.path.join(dirpath, file) + "   file")
                     logging.info(os.path.join(dirpath, file) + "   file")
                 i = i + 1
+
                 if i == number:
                     break
+
             if i == number:
                 break
+
             for dir in dirs:
                 message(config, os.path.join(dirpath, dir) + "   dir")
                 logging.info(os.path.join(dirpath, dir) + "   dir")
                 i = i + 1
+
                 if i == number:
                     break
     else:
@@ -104,11 +118,14 @@ def clearing_trash(config=Config()):
     """Clear the contents of the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
+
     try:
         if not config.dry:
             shutil.rmtree(config.path_to_trash)
+
         message(config, "Trash cleared")
         logging.info("Trash cleared")
     except OSError:
@@ -128,33 +145,36 @@ def clearing_trash(config=Config()):
             os.makedirs(config.path_to_trash)
 
 
-
-
-
 def deleting_files(files, config=Config()):
     """delete files in the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
     iteration = 0
     total_files = len(files)
+
     if not confirmation(config):
         return
+
     for file in files:
         if config.show_bar_status:
             iteration += 1
             print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', length=50, config=config)
+
         if not os.path.exists(os.path.abspath(file)):
             message(config, 'The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
             logging.error('The file "{}" does not exist'.format(os.path.abspath(file).encode('utf8')))
             continue
+
         if os.path.abspath(file) == config.path_to_trash:
             message(config, 'You can not delete a trash')
             logging.error('You can not delete a trash')
             continue
+
         # Name conflict solution
         path_this_file_in_trash = os.path.join(config.path_to_trash,
                                                os.path.basename(os.path.abspath(file)))
         info = ''
+
         if os.path.exists(path_this_file_in_trash):
             count = 1
             while True:
@@ -162,8 +182,10 @@ def deleting_files(files, config=Config()):
                     count += 1
                 else:
                     break
+
             path_this_file_in_trash += "_copy_{}".format(count)
             info += "_copy_{}".format(count)
+
         try:
             if not config.dry:
                 if not os.path.exists(config.path_to_trash):
@@ -175,6 +197,7 @@ def deleting_files(files, config=Config()):
         except MemoryError:
             message(config, 'memory is full')
             logging.error('memory is full')
+
             if config.call_auto_cleaning_if_memory_error:
                 message(config, 'Auto cleaning is called')
                 logging.error('Auto cleaning is called')
@@ -191,8 +214,10 @@ def deleting_files(files, config=Config()):
                           'w'
                           ) as info_file:
                     info_file.write(os.path.abspath(file).encode('utf8'))
+
             message(config, 'The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
             logging.error('The file {} was successfully deleted'.format(os.path.abspath(file).encode('utf8')))
+
         if config.policy >= 0:  # if >0 than policy = size, if 0 than policy = both
             if config.max_size_for_start_cleaning < get_size_trash(config.path_to_trash):
                 auto_clear_trash(config=config)
@@ -202,9 +227,11 @@ def deleting_by_pattern(pattern, config=Config()):
     """delete files by pattern in the trash."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
     files = glob.glob(pattern)
+
     if files:
         deleting_files(files, config=config)
     else:
@@ -218,16 +245,20 @@ def restoring_files(files, config=Config()):
     logging.info(inspect.stack()[0][3])
     iteration = 0
     total_files = len(files)
+
     if not confirmation(config):
         return
+
     for file in files:
         if config.show_bar_status:
             iteration += 1
             print_progress_bar(iteration, total_files, prefix='Progress:', suffix='Complete', config=config, length=50)
+
         if not os.path.exists(os.path.join(config.path_to_trash, file)):
             message(config, 'The file "{}" does not exist'.format(file).encode('utf8'))
             logging.error('The file "{}" does not exist'.format(file).encode('utf8'))
             continue
+
         try:
             with open(os.path.join(config.path_to_trash,
                                    '.info_' +
@@ -235,6 +266,7 @@ def restoring_files(files, config=Config()):
                       'r'
                       ) as info_file:
                 old_path = info_file.readline().decode('utf8')
+
                 if os.path.exists(old_path):
                     if not config.resolve_conflict:
                         message(config, 'file "{}" already exists! rename/move/delete it'.format(file).encode('utf8'))
@@ -270,8 +302,10 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     """Editing program settings."""
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if not confirmation(config):
         return
+
     config.dry = dry
     config.silent = silent
     config.with_confirmation = with_confirmation
@@ -279,6 +313,7 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     config.call_auto_cleaning_if_memory_error = auto_cleaning
     config.show_bar_status = show_bar_status
     config.resolve_conflict = resolve_conflict
+
     if level_log is sys.maxint or level_log is None:
         config.level_log = sys.maxint
         message(config, 'Logging is disabled')
@@ -287,39 +322,47 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
         config.level_log = level_log
         message(config, 'The following level of logging is set: {}'.format(level_log))
         logging.info('The following level of logging is set: {}'.format(level_log))
+
     if time is not None:
         config.min_day_for_start_cleaning = time
         message(config, 'The minimum number of days for auto cleaning is set to {}'.format(time))
         logging.info('The minimum number of days for auto cleaning is set to {}'.format(time))
+
     if size is not None:
         config.max_size_for_start_cleaning = size
         message(config, 'The maximum basket size for cleaning is set to {}'.format(size))
         logging.info('The maximum basket size for cleaning is set to {}'.format(size))
+
     write_config(config)
+
     if config.dry:
         message(config, 'Now imitation of the program is on')
         logging.info('Now imitation of the program is on')
     else:
         message(config, 'Now imitation of the program is off')
         logging.info('Now imitation of the program is off')
+
     if config.silent:
         message(config, 'Now program operation without reports')
         logging.info('Now program operation without reports')
     else:
         message(config, 'Now program operation with reports')
         logging.info('Now program operation with reports')
+
     if config.resolve_conflict:
         message(config, 'Now the program will replace files')
         logging.info('Now the program will replace files')
     else:
         message(config, 'Now the program will not replace files')
         logging.info('Now the program will not replace files')
+
     if config.with_confirmation:
         message(config, 'Now all actions require confirmation')
         logging.info('Now all actions require confirmation')
     else:
         message(config, 'Now all actions don\'t require confirmation')
         logging.info('Now all actions don\'t require confirmation')
+
     if config.policy > 0:
         message(config, 'The size policy has been activated')
         logging.info('The size policy has been activated')
@@ -329,12 +372,14 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False
     else:
         message(config, 'The time policy has been activated')
         logging.info('The time policy has been activated')
+
     if config.call_auto_cleaning_if_memory_error:
         message(config, 'The auto cleaning if memory error has been activated')
         logging.info('The auto cleaning if memory error has been activated')
     else:
         message(config, 'The auto cleaning if memory error has been deactivated')
         logging.info('The auto cleaning if memory error has been deactivated')
+
     if config.show_bar_status:
         message(config, 'The bar status has been activated')
         logging.info('The bar status has been activated')

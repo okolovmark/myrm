@@ -10,7 +10,7 @@ from converter_to_JSON import converter_to_JSON
 from config import Config
 from additional_functions import message, log_config, auto_clear_trash_date
 from main_logic import create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,\
-                      deleting_files, deleting_by_pattern, restoring_files, edit_settings
+                       deleting_files, deleting_by_pattern, restoring_files, edit_settings
 
 config = Config()
 
@@ -40,6 +40,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
     config = read_config()
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
+
     if file_of_settings is not None:
         try:
             file_config = open(file_of_settings, 'r')
@@ -66,10 +67,13 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
         config.show_bar_status = show_bar_status
         config.resolve_conflict = resolve_conflict
         config.level_log = level_log
+
         if time is not None:
             config.min_day_for_start_cleaning = time
+
         if size is not None:
             config.max_size_for_start_cleaning = size
+
     if config.policy <= 0:  # if <0 than policy = time, if 0 than policy = both,
         auto_clear_trash_date(config)
 
