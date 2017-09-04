@@ -95,7 +95,7 @@ def new_log_path(path):
 def load_txt_config(path_txt_file):
     """Loads the txt configuration file."""
     logging.info('return code: {} \n'.format(converter_to_JSON(config_JSON_file='config.json',
-                                                            config_txt_file=path_txt_file)))
+                                                               config_txt_file=path_txt_file)))
 
 
 @main.command()
