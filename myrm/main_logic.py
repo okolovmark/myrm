@@ -18,7 +18,8 @@ from additional_functions import (Codes, log_config, message, confirmation,
 def create_new_trash_path(config=Config(), path='.trash'):
     """Specify the path to the trash."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
 
     if not confirmation(config):
@@ -50,7 +51,8 @@ def create_new_trash_path(config=Config(), path='.trash'):
 def create_new_log_path(config=Config(), path='.log_myrm'):
     """Specify the path to the log."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
     marker = '_itislogfilemyrm_'
     if not confirmation(config):
@@ -94,7 +96,8 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
 def show_list_of_trash(config=Config(), verbose=False, number=100):
     """Show the contents of the basket in quantity 'number'."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
 
     if not confirmation(config):
@@ -137,7 +140,8 @@ def show_list_of_trash(config=Config(), verbose=False, number=100):
 def clearing_trash(config=Config()):
     """Clear the contents of the trash."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
 
     if not confirmation(config):
@@ -172,7 +176,8 @@ def clearing_trash(config=Config()):
 def deleting_file(file, config=Config(), iteration=0, total_files=1):
     code = Codes.GOOD
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
 
     if config.show_bar_status:
         iteration += 1
@@ -253,7 +258,8 @@ def deleting_files(files, config=Config()):
     """delete files in the trash."""
     code = Codes.GOOD
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     iteration = 0
     total_files = len(files)
 
@@ -270,7 +276,8 @@ def deleting_files(files, config=Config()):
 def deleting_by_pattern(pattern, config=Config()):
     """delete files by pattern in the trash."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
 
     if not confirmation(config):
@@ -290,7 +297,8 @@ def deleting_by_pattern(pattern, config=Config()):
 def restoring_file(file, config=Config(), iteration=0, total_files=1):
     code = Codes.GOOD
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
 
     if config.show_bar_status:
         iteration += 1
@@ -349,7 +357,8 @@ def restoring_file(file, config=Config(), iteration=0, total_files=1):
 def restoring_files(files, config=Config()):
     """restore files from the trash."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     iteration = 0
     total_files = len(files)
     code = Codes.GOOD
@@ -369,7 +378,8 @@ def edit_settings(dry=False, silent=False, with_confirmation=False, policy=0,
                   resolve_conflict=False, level_log=sys.maxint, config=Config()):
     """Editing program settings."""
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
     code = Codes.GOOD
 
     if not confirmation(config):

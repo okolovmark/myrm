@@ -115,7 +115,8 @@ def auto_clear_trash(config=Config()):
 
     code = Codes.GOOD
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
+    logging.info('function: ' + inspect.stack()[0][3])
+    logging.info('result: ')
 
     if not confirmation(config):
         code = Codes.NOT_CONFIRMATION
