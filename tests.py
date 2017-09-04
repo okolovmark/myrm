@@ -16,6 +16,7 @@ class TestConsole(unittest.TestCase):
     def setUp(self):
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
+        shutil.copyfile(r'config.json', r'temp.json')
         os.rename(f2, f3)
         os.mkdir(f2)
         os.mkdir('test_dir')
@@ -31,6 +32,8 @@ class TestConsole(unittest.TestCase):
             shutil.rmtree('test_dir')
         shutil.rmtree(f2)
         os.rename(f3, f2)
+        shutil.copyfile(r'temp.json', r'config.json')
+        os.remove('temp.json')
 
     def test_remove_files(self):
         files1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
@@ -159,13 +162,11 @@ class TestConsole(unittest.TestCase):
         self.assertFalse(os.path.exists(f1))
 
     def test_settings(self):
-        shutil.copyfile(r'config.json', r'temp.json')
         subprocess.call('myrm settings -d', shell=True)
         subprocess.call('myrm delete_files test_dir/a.txt', shell=True)
         self.assertTrue(os.path.exists('test_dir/a.txt'))
         self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
         shutil.copyfile(r'temp.json', r'config.json')
-        os.remove('temp.json')
 
     def test_show_trash(self):
         subprocess.call('myrm show_trash', shell=True)
@@ -178,6 +179,7 @@ class TestMainLogic(unittest.TestCase):
     def setUp(self):
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
+        shutil.copyfile(r'config.json', r'temp.json')
         os.rename(f2, f3)
         os.mkdir(f2)
         os.mkdir('test_dir')
@@ -193,6 +195,8 @@ class TestMainLogic(unittest.TestCase):
             shutil.rmtree('test_dir')
         shutil.rmtree(f2)
         os.rename(f3, f2)
+        shutil.copyfile(r'temp.json', r'config.json')
+        os.remove('temp.json')
 
     def test_create_new_trash_path(self):
         f1 = '.trashes2'
@@ -292,6 +296,7 @@ class TestEditConfig(unittest.TestCase):
     def setUp(self):
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
+        shutil.copyfile(r'config.json', r'temp.json')
         os.rename(f2, f3)
         os.mkdir(f2)
         os.mkdir('test_dir')
@@ -307,6 +312,8 @@ class TestEditConfig(unittest.TestCase):
             shutil.rmtree('test_dir')
         shutil.rmtree(f2)
         os.rename(f3, f2)
+        shutil.copyfile(r'temp.json', r'config.json')
+        os.remove('temp.json')
 
     def test_read_and_write_config(self):
         write_config(config, 'test/test_write_config.json')
@@ -320,6 +327,7 @@ class TestAdditionalFunctions(unittest.TestCase):
     def setUp(self):
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
+        shutil.copyfile(r'config.json', r'temp.json')
         os.rename(f2, f3)
         os.mkdir(f2)
         os.mkdir('test_dir')
@@ -335,6 +343,8 @@ class TestAdditionalFunctions(unittest.TestCase):
             shutil.rmtree('test_dir')
         shutil.rmtree(f2)
         os.rename(f3, f2)
+        shutil.copyfile(r'temp.json', r'config.json')
+        os.remove('temp.json')
 
     def test_message(self):
         test_config = Config()

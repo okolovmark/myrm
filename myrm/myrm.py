@@ -3,7 +3,6 @@
 """its main file for work with trash in terminal"""
 import click
 import json
-import inspect
 import logging
 from edit_config import read_config
 from converter_to_JSON import converter_to_JSON
@@ -40,8 +39,6 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
     global config
     config = read_config(config)
     log_config(config=config)
-    logging.info(inspect.stack()[0][3])
-
     if file_of_settings is not None:
         try:
             file_config = open(file_of_settings, 'r')
