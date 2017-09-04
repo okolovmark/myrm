@@ -82,9 +82,9 @@ def create_new_log_path(config=Config(), path='.log_myrm'):
         logging.info('New log path: {path}'.format(path=hidden_log))
     except IOError:
         message(config, 'incorrect path')
-        message(config, 'Remains the trash path: {path}'.format(path=config.path_to_log))
+        message(config, 'Remains the log path: {path}'.format(path=config.path_to_log))
         logging.error('incorrect path')
-        logging.error('Remains the trash path: {path}'.format(path=config.path_to_log))
+        logging.error('Remains the log path: {path}'.format(path=config.path_to_log))
         code = Codes.BAD
     except OSError:
         code = Codes.BAD
@@ -364,7 +364,7 @@ def restoring_files(files, config=Config()):
     return code
 
 
-def edit_settings(dry=False, silent=False, with_confirmation=False, policy=False,
+def edit_settings(dry=False, silent=False, with_confirmation=False, policy=0,
                   auto_cleaning=False, show_bar_status=False, time=None, size=None,
                   resolve_conflict=False, level_log=sys.maxint, config=Config()):
     """Editing program settings."""

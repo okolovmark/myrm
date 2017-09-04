@@ -8,7 +8,7 @@ import logging
 from edit_config import read_config
 from converter_to_JSON import converter_to_JSON
 from config import Config
-from additional_functions import message, log_config, auto_clear_trash_date
+from additional_functions import message, log_config,  check_date_for_auto_clear_trash
 from main_logic import (create_new_trash_path, create_new_log_path, show_list_of_trash, clearing_trash,
                         deleting_files, deleting_by_pattern, restoring_files, edit_settings)
 
@@ -23,7 +23,8 @@ config = Config()
 @click.option('-d', '--dry', is_flag=True, help='Imitation of program.')
 @click.option('-s', '--silent', is_flag=True, help='Program operation without reports.')
 @click.option('-w', '--with_confirmation', is_flag=True, help='All actions require confirmation.')
-@click.option('-p', '--policy', is_flag=True, help='Select the trash cleaning policy: True=size, False=time.')
+@click.option('-p', '--policy', type=int, required=False, default=0,
+              help='Select the trash cleaning policy: >0=size, <0=time, 0=both')
 @click.option('-a', '--auto_cleaning', is_flag=True, help='Call function auto_clear_trash if memory is full.')
 @click.option('-b', '--show_bar_status', is_flag=True, help='Show bar status.')
 @click.option('-t', '--time', type=int, required=False,
@@ -37,7 +38,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
          auto_cleaning, show_bar_status, time, size, level_log, resolve_conflict):
     """Here you can specify one-time settings, if you want and call the program functions."""
     global config
-    config = read_config()
+    config = read_config(config)
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
 
@@ -75,7 +76,7 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
             config.max_size_for_start_cleaning = size
 
     if config.policy <= 0:  # if <0 than policy = time, if 0 than policy = both,
-        auto_clear_trash_date(config)
+        check_date_for_auto_clear_trash(config)
 
 
 @main.command()

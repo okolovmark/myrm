@@ -25,11 +25,25 @@ def log_config(config=Config()):
 
 
 def message(config=Config(), *args, **kwargs):
-    if not config.silent:
-        click.echo(*args, **kwargs)
+    code = Codes.GOOD
+    try:
+        if not config.silent:
+            click.echo(*args, **kwargs)
+    except:
+        code = Codes.BAD
+        return code
+    else:
+        return code
 
 
-def confirmation(config=Config()):
+def input_string(string=None):  # for auto input for tests
+    if string is None:
+        return raw_input()
+    else:
+        return string
+
+
+def confirmation(config=Config(), string=None):
     """function requesting confirmation for an operation"""
     log_config(config=config)
     if config.with_confirmation:
@@ -37,7 +51,7 @@ def confirmation(config=Config()):
         message(config, 'If not sure write no')
         logging.info('Are you sure you want to run function {}?'.format(inspect.stack()[1][3]))
         logging.info('If not sure write no')
-        answer = raw_input()
+        answer = input_string(string=string)
         if answer.lower() == 'no':
             message(config, 'Function {} canceled'.format(inspect.stack()[1][3]))
             logging.info('Function {} canceled'.format(inspect.stack()[1][3]))
@@ -75,7 +89,7 @@ def get_size_trash(path):
     return total_size
 
 
-def auto_clear_trash_date(config):
+def check_date_for_auto_clear_trash(config):
     last_cleaning_date = datetime.datetime(config.last_cleaning_date['year'],
                                            config.last_cleaning_date['month'],
                                            config.last_cleaning_date['day'],
@@ -99,11 +113,13 @@ def auto_clear_trash(config=Config()):
                 count_slash = count_slash + 1
         return count_slash
 
+    code = Codes.GOOD
     log_config(config=config)
     logging.info(inspect.stack()[0][3])
 
     if not confirmation(config):
-        return
+        code = Codes.NOT_CONFIRMATION
+        return code
 
     if not config.dry:
         list_of_files = []
@@ -161,3 +177,4 @@ def auto_clear_trash(config=Config()):
         config.last_cleaning_date['second'] = last_cleaning_date.second
         config.last_cleaning_date['microsecond'] = last_cleaning_date.microsecond
         write_config(config)
+    return code

@@ -7,13 +7,9 @@ import json
 from config import Config
 
 
-pass_config = click.make_pass_decorator(Config, ensure=True)
-
-
-@pass_config
-def read_config(config):
+def read_config(config, path='config.json'):
     try:
-        file_config = open('config.json', 'r')
+        file_config = open(path, 'r')
     except IOError:
         if not config.silent:
             click.echo('Could not open file')
@@ -35,7 +31,6 @@ def read_config(config):
     return config
 
 
-@pass_config
-def write_config(config):
-    with open('config.json', 'w') as file_config:
+def write_config(config, path='config.json'):
+    with open(path, 'w') as file_config:
         file_config.write(config.toJSON())
