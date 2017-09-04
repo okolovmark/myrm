@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e472fc96-5f9f-4799-af12-3c2063091c96" name="Default" comment="add new tests">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test_read_config.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test_write_config.json" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/myrm.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+    <list default="true" id="6bc2aca7-e8f0-4d90-85df-8e83fa935730" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/additional_functions.py" afterPath="$PROJECT_DIR$/myrm/additional_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/edit_config.py" afterPath="$PROJECT_DIR$/myrm/edit_config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/main_logic.py" afterPath="$PROJECT_DIR$/myrm/main_logic.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myrm/myrm.py" afterPath="$PROJECT_DIR$/myrm/myrm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests.py" afterPath="$PROJECT_DIR$/tests.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,9 +18,11 @@
       <file leaf-file-name="myrm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myrm/myrm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2450">
-              <caret line="6" column="14" lean-forward="false" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="-646">
+              <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+              <folding>
+                <element signature="e#101#113#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,8 +30,8 @@
       <file leaf-file-name="tests.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="367" column="36" lean-forward="false" selection-start-line="367" selection-start-column="36" selection-end-line="367" selection-end-column="36" />
+            <state relative-caret-position="-665">
+              <caret line="273" column="20" lean-forward="true" selection-start-line="273" selection-start-column="20" selection-end-line="273" selection-end-column="20" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -47,10 +39,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="converter_to_JSON.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myrm/converter_to_JSON.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="additional_functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myrm/additional_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
+            <state relative-caret-position="476">
               <caret line="35" column="19" lean-forward="false" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
               <folding>
                 <element signature="e#2953#3717#0" expanded="false" />
@@ -63,7 +65,7 @@
       <file leaf-file-name="main_logic.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
+            <state relative-caret-position="2907">
               <caret line="345" column="15" lean-forward="false" selection-start-line="345" selection-start-column="15" selection-end-line="345" selection-end-column="15" />
               <folding>
                 <element signature="e#106#115#0" expanded="true" />
@@ -83,7 +85,7 @@
       <file leaf-file-name="edit_config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myrm/edit_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
+            <state relative-caret-position="493">
               <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#99#111#0" expanded="true" />
@@ -93,13 +95,6 @@
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -122,13 +117,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/myrm/config.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/myrm/converter_to_JSON.py" />
-        <option value="$PROJECT_DIR$/myrm/main_logic.py" />
-        <option value="$PROJECT_DIR$/myrm/edit_config.py" />
-        <option value="$PROJECT_DIR$/myrm/myrm.py" />
-        <option value="$PROJECT_DIR$/myrm/additional_functions.py" />
         <option value="$PROJECT_DIR$/tests.py" />
       </list>
     </option>
@@ -139,6 +127,7 @@
     <option name="width" value="902" />
     <option name="height" value="484" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -154,7 +143,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,11 +150,17 @@
               <item name="myrm" type="b2602c69:ProjectViewProjectNode" />
               <item name="myrm" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="myrm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myrm" type="462c0819:PsiDirectoryNode" />
+              <item name="myrm" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -185,27 +179,46 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tests">
-    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python tests.Unittests in tests.py">
+    <configuration name="Unittests in tests.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
+      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="myrm" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration name="myrm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/myrm" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="myrm" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/myrm/myrm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in tests.py" />
+      <item index="1" class="java.lang.String" itemvalue="Python.myrm" />
+    </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.tests" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in tests.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python.myrm" />
       </list>
     </recent_temporary>
   </component>
@@ -214,69 +227,40 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e472fc96-5f9f-4799-af12-3c2063091c96" name="Default" comment="" />
-      <created>1503768361297</created>
+      <changelist id="6bc2aca7-e8f0-4d90-85df-8e83fa935730" name="Default" comment="" />
+      <created>1504495715484</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1503768361297</updated>
+      <updated>1504495715484</updated>
     </task>
-    <task id="LOCAL-00001" summary="restyling code">
-      <created>1504402830902</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1504402830902</updated>
-    </task>
-    <task id="LOCAL-00002" summary="restyling code">
-      <created>1504403608116</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1504403608116</updated>
-    </task>
-    <task id="LOCAL-00003" summary="add multiproccesing for delete and restore files">
-      <created>1504404654315</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1504404654315</updated>
-    </task>
-    <task id="LOCAL-00004" summary="add returns">
-      <created>1504409495593</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1504409495593</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add tests">
-      <created>1504422660944</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1504422660944</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add new tests">
-      <created>1504462666208</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1504462666208</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_tests_py - 2017.09.04 at 06h 29m 12s.xml">
+      <configuration name="Unittests in tests.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_tests_py - 2017.09.04 at 06h 40m 31s.xml">
+      <configuration name="Unittests in tests.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_tests_py - 2017.09.04 at 06h 43m 14s.xml">
+      <configuration name="Unittests in tests.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_tests_py - 2017.09.04 at 06h 54m 36s.xml">
+      <configuration name="Unittests in tests.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="244" width="1366" height="732" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26136363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2659091" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.5060606" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32890365" sideWeight="0.4909091" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32890365" sideWeight="0.4909091" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.4939394" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781458" sideWeight="0.4939394" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3986711" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -285,19 +269,38 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="restyling code" />
-    <MESSAGE value="add multiproccesing for delete and restore files" />
-    <MESSAGE value="add returns" />
-    <MESSAGE value="add tests" />
-    <MESSAGE value="add new tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -311,10 +314,69 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/myrm/myrm.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="14" lean-forward="false" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <folding>
+            <element signature="e#101#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2907">
+          <caret line="345" column="15" lean-forward="false" selection-start-line="345" selection-start-column="15" selection-end-line="345" selection-end-column="15" />
+          <folding>
+            <element signature="e#106#115#0" expanded="true" />
+            <element signature="e#514#1619#0" expanded="false" />
+            <element signature="e#1686#3484#0" expanded="false" />
+            <element signature="e#3559#5084#0" expanded="false" />
+            <element signature="e#5128#6373#0" expanded="false" />
+            <element signature="e#9614#10038#0" expanded="false" />
+            <element signature="e#10096#10553#0" expanded="false" />
+            <element signature="e#13112#13540#0" expanded="false" />
+            <element signature="e#13791#17515#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/additional_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="35" column="19" lean-forward="false" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding>
+            <element signature="e#2953#3717#0" expanded="false" />
+            <element signature="e#3763#6812#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/edit_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#99#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6069">
+          <caret line="367" column="36" lean-forward="false" selection-start-line="367" selection-start-column="36" selection-end-line="367" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/myrm.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
           <caret line="107" column="107" lean-forward="false" selection-start-line="107" selection-start-column="42" selection-end-line="107" selection-end-column="107" />
           <folding>
-            <element signature="e#101#113#0" expanded="false" />
+            <element signature="e#101#113#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -329,10 +391,8 @@
             <element signature="e#1686#3484#0" expanded="false" />
             <element signature="e#3559#5084#0" expanded="false" />
             <element signature="e#5128#6373#0" expanded="false" />
-            <element signature="e#6450#9563#0" expanded="false" />
             <element signature="e#9614#10038#0" expanded="false" />
             <element signature="e#10096#10553#0" expanded="false" />
-            <element signature="e#10631#13060#0" expanded="false" />
             <element signature="e#13112#13540#0" expanded="false" />
             <element signature="e#13791#17515#0" expanded="false" />
           </folding>
@@ -372,7 +432,7 @@
         <state relative-caret-position="1666">
           <caret line="107" column="107" lean-forward="false" selection-start-line="107" selection-start-column="42" selection-end-line="107" selection-end-column="107" />
           <folding>
-            <element signature="e#101#113#0" expanded="false" />
+            <element signature="e#101#113#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -415,10 +475,8 @@
             <element signature="e#1686#3484#0" expanded="false" />
             <element signature="e#3559#5084#0" expanded="false" />
             <element signature="e#5128#6373#0" expanded="false" />
-            <element signature="e#6450#9563#0" expanded="false" />
             <element signature="e#9614#10038#0" expanded="false" />
             <element signature="e#10096#10553#0" expanded="false" />
-            <element signature="e#10631#13060#0" expanded="false" />
             <element signature="e#13112#13540#0" expanded="false" />
             <element signature="e#13791#17515#0" expanded="false" />
           </folding>
@@ -430,7 +488,7 @@
         <state relative-caret-position="1598">
           <caret line="103" column="14" lean-forward="false" selection-start-line="103" selection-start-column="14" selection-end-line="103" selection-end-column="14" />
           <folding>
-            <element signature="e#101#113#0" expanded="false" />
+            <element signature="e#101#113#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -487,10 +545,8 @@
             <element signature="e#1686#3484#0" expanded="false" />
             <element signature="e#3559#5084#0" expanded="false" />
             <element signature="e#5128#6373#0" expanded="false" />
-            <element signature="e#6450#9563#0" expanded="false" />
             <element signature="e#9614#10038#0" expanded="false" />
             <element signature="e#10096#10553#0" expanded="false" />
-            <element signature="e#10631#13060#0" expanded="false" />
             <element signature="e#13112#13540#0" expanded="false" />
             <element signature="e#13791#17515#0" expanded="false" />
           </folding>
@@ -514,14 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myrm/converter_to_JSON.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myrm/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -530,17 +578,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myrm/myrm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2450">
-          <caret line="6" column="14" lean-forward="false" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myrm/edit_config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
+        <state relative-caret-position="493">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="e#99#111#0" expanded="true" />
@@ -550,7 +590,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myrm/main_logic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
+        <state relative-caret-position="2907">
           <caret line="345" column="15" lean-forward="false" selection-start-line="345" selection-start-column="15" selection-end-line="345" selection-end-column="15" />
           <folding>
             <element signature="e#106#115#0" expanded="true" />
@@ -568,7 +608,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myrm/additional_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
+        <state relative-caret-position="476">
           <caret line="35" column="19" lean-forward="false" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
           <folding>
             <element signature="e#2953#3717#0" expanded="false" />
@@ -595,10 +635,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/myrm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-646">
+          <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+          <folding>
+            <element signature="e#101#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myrm/converter_to_JSON.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="367" column="36" lean-forward="false" selection-start-line="367" selection-start-column="36" selection-end-line="367" selection-end-column="36" />
+        <state relative-caret-position="-665">
+          <caret line="273" column="20" lean-forward="true" selection-start-line="273" selection-start-column="20" selection-end-line="273" selection-end-column="20" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

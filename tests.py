@@ -1,6 +1,4 @@
 import unittest
-import os
-import shutil
 import time
 import subprocess
 from myrm.myrm import *
@@ -35,16 +33,15 @@ class TestConsole(unittest.TestCase):
         os.rename(f3, f2)
 
     def test_remove_files(self):
-        f1 = 'test_dir/a.txt'
-        f2 = 'test_dir/b.txt'
-        f3 = 'test_dir/c.txt'
-        subprocess.call('myrm delete_files {} {} {}'.format(f1, f2, f3), shell=True)
-        self.assertFalse(os.path.exists(f1))
-        self.assertFalse(os.path.exists(f2))
-        self.assertFalse(os.path.exists(f3))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'b.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'c.txt')))
+        files1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
+        files2 = ['a.txt', 'b.txt', 'c.txt']
+
+        subprocess.call('myrm delete_files {} {} {}'.format(files1[0], files1[1], files1[2]), shell=True)
+
+        for f in files1:
+            self.assertFalse(os.path.exists(f))
+        for f in files2:
+            self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, f)))
 
     def test_remove_dir(self):
         d1 = 'test_dir'
@@ -69,26 +66,21 @@ class TestConsole(unittest.TestCase):
         self.assertFalse(os.path.exists(f1))
 
     def test_remove_and_restore_files(self):
-        f1 = 'test_dir/a.txt'
-        f2 = 'test_dir/b.txt'
-        f3 = 'test_dir/c.txt'
-        subprocess.call('myrm delete_files {} {} {}'.format(f1, f2, f3), shell=True)
-        self.assertFalse(os.path.exists(f1))
-        self.assertFalse(os.path.exists(f2))
-        self.assertFalse(os.path.exists(f3))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'b.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'c.txt')))
-        f4 = 'a.txt'
-        f5 = 'b.txt'
-        f6 = 'c.txt'
-        subprocess.call('myrm restore_files {} {} {}'.format(f4, f5, f6), shell=True)
-        self.assertTrue(os.path.exists(f1))
-        self.assertTrue(os.path.exists(f2))
-        self.assertTrue(os.path.exists(f3))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'b.txt')))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'c.txt')))
+        f1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
+        f2 = ['a.txt', 'b.txt', 'c.txt']
+        subprocess.call('myrm delete_files {} {} {}'.format(f1[0], f1[1], f1[2]), shell=True)
+
+        for f in f1:
+            self.assertFalse(os.path.exists(f))
+        for f in f2:
+            self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, f)))
+
+        subprocess.call('myrm restore_files {} {} {}'.format(f2[0], f2[1], f2[2]), shell=True)
+
+        for f in f1:
+            self.assertTrue(os.path.exists(f))
+        for f in f2:
+            self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, f)))
 
     def test_restore_not_available_files(self):
         f1 = 'test_dir/a.txt'
@@ -111,16 +103,14 @@ class TestConsole(unittest.TestCase):
         self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
 
     def test_delete_by_pattern(self):
+        f1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
+        f2 = ['a.txt', 'b.txt', 'c.txt']
         subprocess.call('myrm delete_by_pattern "test_dir/[a-c].txt"', shell=True)
-        f1 = 'test_dir/a.txt'
-        f2 = 'test_dir/b.txt'
-        f3 = 'test_dir/c.txt'
-        self.assertFalse(os.path.exists(f1))
-        self.assertFalse(os.path.exists(f2))
-        self.assertFalse(os.path.exists(f3))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'b.txt')))
-        self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, 'c.txt')))
+
+        for f in f1:
+            self.assertFalse(os.path.exists(f))
+        for f in f2:
+            self.assertTrue(os.path.exists(os.path.join(config.path_to_trash, f)))
 
     def test_delete_by_pattern_more_files(self):
         files = []
@@ -275,21 +265,16 @@ class TestMainLogic(unittest.TestCase):
         self.assertTrue(restoring_file('m.txt', config) == 2)
 
     def test_restoring_files(self):
-        f = ['a.txt', 'b.txt', 'c.txt']
-        f1 = 'test_dir/a.txt'
-        f2 = 'test_dir/b.txt'
-        f3 = 'test_dir/c.txt'
-        deleting_file(f1, config)
-        deleting_file(f2, config)
-        deleting_file(f3, config)
-        self.assertTrue(restoring_files(f, config) == 0)
+        f1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
+        f2 = ['a.txt', 'b.txt', 'c.txt']
+        for f in f1:
+            deleting_file(f, config)
+        self.assertTrue(restoring_files(f2, config) == 0)
         time.sleep(1)
-        self.assertTrue(os.path.exists(f1))
-        self.assertTrue(os.path.exists(f2))
-        self.assertTrue(os.path.exists(f3))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'b.txt')))
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'c.txt')))
+        for f in f1:
+            self.assertTrue(os.path.exists(f))
+        for f in f2:
+            self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, f)))
 
     def test_edit_settings(self):
         self.assertTrue(edit_settings(dry=True, silent=True, with_confirmation=False, policy=1,
