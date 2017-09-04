@@ -152,9 +152,9 @@ def settings(dry, silent, with_confirmation, policy, auto_cleaning,
              show_bar_status, resolve_conflict, time, size, level_log):
     """Editing program settings."""
     logging.info('return code: {} \n'.format(edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation,
-                                                        policy=policy, config=config, auto_cleaning=auto_cleaning,
-                                                        show_bar_status=show_bar_status, time=time, size=size,
-                                                        level_log=level_log, resolve_conflict=resolve_conflict)))
+                                                           policy=policy, config=config, auto_cleaning=auto_cleaning,
+                                                           show_bar_status=show_bar_status, time=time, size=size,
+                                                           level_log=level_log, resolve_conflict=resolve_conflict)))
 
 
 if __name__ == '__main__':
