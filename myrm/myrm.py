@@ -80,21 +80,21 @@ def main(file_of_settings, one_time_settings, dry, silent, with_confirmation, po
 @click.argument('path', default='.trash', type=str)
 def new_trash_path(path):
     """Specify the path to the trash."""
-    logging.info('return code: {}'.format(create_new_trash_path(config=config, path=path)))
+    logging.info('return code: {} \n'.format(create_new_trash_path(config=config, path=path)))
 
 
 @main.command()
 @click.argument('path', default='.log_myrm', type=str)
 def new_log_path(path):
     """Specify the path to the log."""
-    logging.info('return code: {}'.format(create_new_log_path(config=config, path=path)))
+    logging.info('return code: {} \n'.format(create_new_log_path(config=config, path=path)))
 
 
 @main.command()
 @click.argument('path_txt_file', default='config.txt', type=str)
 def load_txt_config(path_txt_file):
     """Loads the txt configuration file."""
-    logging.info('return code: {}'.format(converter_to_JSON(config_JSON_file='config.json',
+    logging.info('return code: {} \n'.format(converter_to_JSON(config_JSON_file='config.json',
                                                             config_txt_file=path_txt_file)))
 
 
@@ -103,34 +103,34 @@ def load_txt_config(path_txt_file):
 @click.argument('number', type=int, default=100, required=False)
 def show_trash(verbose, number):
     """Show the contents of the basket in quantity 'number'."""
-    logging.info('return code: {}'.format(show_list_of_trash(config=config, verbose=verbose, number=number)))
+    logging.info('return code: {} \n'.format(show_list_of_trash(config=config, verbose=verbose, number=number)))
 
 
 @main.command()
 def clear_trash():
     """Clear the contents of the trash."""
-    logging.info('return code: {}'.format(clearing_trash(config=config)))
+    logging.info('return code: {} \n'.format(clearing_trash(config=config)))
 
 
 @main.command()
 @click.argument('files', nargs=-1, type=str)
 def delete_files(files):
     """delete files in the trash."""
-    logging.info('return code: {}'.format(deleting_files(config=config, files=files)))
+    logging.info('return code: {} \n'.format(deleting_files(config=config, files=files)))
 
 
 @main.command()
 @click.argument('pattern', type=str)
 def delete_by_pattern(pattern):
     """delete files by pattern in the trash."""
-    logging.info('return code: {}'.format(deleting_by_pattern(config=config, pattern=pattern)))
+    logging.info('return code: {} \n'.format(deleting_by_pattern(config=config, pattern=pattern)))
 
 
 @main.command()
 @click.argument('files', nargs=-1, type=str)
 def restore_files(files):
     """restore files from the trash."""
-    logging.info('return code: {}'.format(restoring_files(config=config, files=files)))
+    logging.info('return code: {} \n'.format(restoring_files(config=config, files=files)))
 
 
 @main.command()
@@ -151,7 +151,7 @@ def restore_files(files):
 def settings(dry, silent, with_confirmation, policy, auto_cleaning,
              show_bar_status, resolve_conflict, time, size, level_log):
     """Editing program settings."""
-    logging.info('return code: {}'.format(edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation,
+    logging.info('return code: {} \n'.format(edit_settings(dry=dry, silent=silent, with_confirmation=with_confirmation,
                                                         policy=policy, config=config, auto_cleaning=auto_cleaning,
                                                         show_bar_status=show_bar_status, time=time, size=size,
                                                         level_log=level_log, resolve_conflict=resolve_conflict)))
