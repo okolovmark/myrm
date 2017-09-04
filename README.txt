@@ -1,11 +1,10 @@
 About:
-Program allows you to delete and restore folders and files
-
+Program allows you to delete and restore folders and files.
 
 Project structure:
 myrm
   additional_functions.py
-  config.py
+  config.py 
   converter_to_JSON.py
   edit_config.py
   main_logic.py
@@ -14,7 +13,10 @@ myrm
 setup.py
 
 Install:
-Write "python setup.py install" in the terminal
+Write "python setup.py install" in the terminal.
+
+Uninstall:
+Write "pip uninstall myrm" in the terminal.
 
 Config formats:
 JSON:
@@ -98,7 +100,6 @@ Options:
   -l, --level_log INTEGER      Change the level of the logging or omit the
                                parameter to disable logging.
   -r, --resolve_conflict       Resolve a conflict of files.
-
 
 Commands:
   clear_trash        Clear the contents of the trash.
