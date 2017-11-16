@@ -8,12 +8,15 @@ from myrm.additional_functions import *
 from myrm.converter_to_JSON import converter_to_JSON
 from myrm.config import Config
 
-log_config(config=config)
+config = Config()
 
 
 class TestConsole(unittest.TestCase):
 
     def setUp(self):
+        global config
+        config = read_config(config)
+        log_config(config=config)
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
         shutil.copyfile(r'config.json', r'temp.json')
@@ -31,7 +34,7 @@ class TestConsole(unittest.TestCase):
         if os.path.exists('test_dir'):
             shutil.rmtree('test_dir')
         shutil.rmtree(f2)
-        os.rename(f3, f2)
+        os.rename(f3, f2)  # be error if n/a folder trash
         shutil.copyfile(r'temp.json', r'config.json')
         os.remove('temp.json')
 
@@ -103,7 +106,8 @@ class TestConsole(unittest.TestCase):
             pass
         self.assertTrue(os.path.exists(f1))
         subprocess.call('myrm restore_files a.txt', shell=True)
-        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))
+        self.assertFalse(os.path.exists(os.path.join(config.path_to_trash, 'a.txt')))  # true if in config true
+        # resolve conflict
 
     def test_delete_by_pattern(self):
         f1 = ['test_dir/a.txt', 'test_dir/b.txt', 'test_dir/c.txt']
@@ -177,6 +181,9 @@ class TestConsole(unittest.TestCase):
 class TestMainLogic(unittest.TestCase):
 
     def setUp(self):
+        global config
+        config = read_config(config)
+        log_config(config=config)
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
         shutil.copyfile(r'config.json', r'temp.json')
@@ -294,6 +301,9 @@ class TestMainLogic(unittest.TestCase):
 class TestEditConfig(unittest.TestCase):
 
     def setUp(self):
+        global config
+        config = read_config(config)
+        log_config(config=config)
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
         shutil.copyfile(r'config.json', r'temp.json')
@@ -325,6 +335,9 @@ class TestEditConfig(unittest.TestCase):
 class TestAdditionalFunctions(unittest.TestCase):
 
     def setUp(self):
+        global config
+        config = read_config(config)
+        log_config(config=config)
         f2 = config.path_to_trash
         f3 = '.temp_name_trash'
         shutil.copyfile(r'config.json', r'temp.json')
@@ -364,6 +377,7 @@ class TestAdditionalFunctions(unittest.TestCase):
         f1 = 'test_dir/a.txt'
         deleting_file(f1, config)
         self.assertTrue(auto_clear_trash(config) == 0)
+
 
 if __name__ == '__main__':
     unittest.main()
